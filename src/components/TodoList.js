@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addTodo, toggleTodo } from '../actions/index'
+import { addTodo, toggleTodo, loadTodos } from '../actions/index'
 
 class TodoList extends Component {
 
   state = { newTodoText: '' }
+
+  componentDidMount = () => {
+    this.props.loadTodos()
+  }
 
   addNewTodo = () => {
   	this.props.addTodo(this.state.newTodoText)
@@ -48,6 +52,6 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = ({ todos }) => ({ todos })
-const mapDispatchToProps = { addTodo, toggleTodo }
+const mapDispatchToProps = { addTodo, toggleTodo, loadTodos }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

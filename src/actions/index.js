@@ -1,11 +1,13 @@
-let nextTodoId = 0
 export const addTodo = text => ({
-	type: 'ADD_TODO',
-	id: nextTodoId++,
+	type: 'ASYNC_ADD_TODO',
 	text,
 })
 
 export const toggleTodo = id => ({
 	type: 'TOGGLE_TODO',
 	id
+})
+
+export const loadTodos = () => ({
+    type: 'ASYNC_LOAD_TODOS'
 })
