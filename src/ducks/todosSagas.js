@@ -15,21 +15,21 @@ const apiGet = async () => {
         .catch(error => error)
 }
 
-function* asyncAddTodo({ text, id }) {
+function* asyncAddTodo({ text }) {
     const todos = yield select(state => state.todos)
 
     const response = yield call(apiAdd, text, todos.length)
-    yield put({ type: 'ADD_TODO', text: response, id: todos.length })
+    yield put({ type: 'ASYNC_ADD_TODO', text: response, id: todos.length })
 }
 
 function* asyncLoadTodos() {
     const response = yield call(apiGet)
-    yield put({ type: 'LOAD_TODOS', todos: response })
+    yield put({ type: 'ASYNC_LOAD_TODOS', todos: response })
 }
 
 export default function* root() {
     yield [
-           takeEvery('ASYNC_ADD_TODO', asyncAddTodo),
-           takeEvery('ASYNC_LOAD_TODOS', asyncLoadTodos) 
+        takeEvery('ADD_TODO', asyncAddTodo),
+        takeEvery('LOAD_TODOS', asyncLoadTodos)
     ]
 }
